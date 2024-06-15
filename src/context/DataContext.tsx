@@ -1,10 +1,14 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 
 type IDataContext = {
   loading: boolean;
   error: string | unknown;
   data: IVendas[] | null;
+  inicio: string;
+  final: string;
+  setInicio: React.Dispatch<React.SetStateAction<string>>;
+  setFinal: React.Dispatch<React.SetStateAction<string>>;
 };
 
 type IVendas = {
@@ -25,12 +29,26 @@ export const useData = () => {
   return context;
 };
 
+const getAnyDaysAgo = (backDays: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() - backDays); //backDays usado para subtrair os dias da data atual
+  const day = String(date.getDate()).padStart(2, "0"); //se a variavel for menor que 2, ele acrescenta um 0
+  const month = String(date.getMonth() + 1).padStart(2, "0"); //se a variavel for menor que 2, ele acrescenta um 0
+  const year = date.getFullYear();
+  return `${year}-${month}-${day}`;
+};
+
 export const DataContextProvider = ({ children }: React.PropsWithChildren) => {
+  const [inicio, setInicio] = useState(getAnyDaysAgo(14));
+  const [final, setFinal] = useState(getAnyDaysAgo(0));
+
   const { data, loading, error } = useFetch<IVendas[]>(
-    "https://data.origamid.dev/vendas/"
+    `https://data.origamid.dev/vendas/?inicio=${inicio}&final=${final}`
   );
   return (
-    <DataContext.Provider value={{ data, loading, error }}>
+    <DataContext.Provider
+      value={{ data, loading, error, inicio, setInicio, final, setFinal }}
+    >
       {children}
     </DataContext.Provider>
   );
