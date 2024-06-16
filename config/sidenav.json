@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Resumo",
+    "image": "./assets/icons/resumo.svg",
+    "path": "/"
+  },
+  {
+    "name": "Vendas",
+    "image": "./assets/icons/vendas.svg",
+    "path": "/vendas"
+  },
+  {
+    "name": "Webhooks",
+    "image": "./assets/icons/webhooks.svg",
+    "path": "/"
+  },
+  {
+    "name": "Configurações",
+    "image": "./assets/icons/configuracoes.svg",
+    "path": "/"
+  },
+  {
+    "name": "Contato",
+    "image": "./assets/icons/contato.svg",
+    "path": "/"
+  },
+  {
+    "name": "Sair",
+    "image": "./assets/icons/sair.svg",
+    "path": "/"
+  }
+]
